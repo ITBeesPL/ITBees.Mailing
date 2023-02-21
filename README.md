@@ -23,6 +23,8 @@ Dependecy injection setup :
     #endif
 ```
 
+DevEnvironmentEmailSendingService class will send email messages to recipients meeting the above requirement, and send the other messages only to console.log
+
 ## Smtp client setup
 
 Configure dependecy injection to inject for the ISmtpClient interface the SmtpClient class from MailKit.Net.Smtp - if you want to use it to communicate with the stmp server.
