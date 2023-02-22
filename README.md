@@ -1,6 +1,6 @@
 # ITBees.Mailing
+This library belongs to the 'FAS - Fast Application Start' framework created by ITBees as part of an open source project. You can explore the capabilities of the framework at https://ITBees.pl/fas or https://github.com/ITBeesPL
 # Setup
-
 ## Environment setup
 Depending on the environment you want the library to run in, configure dependency injection to return an implementation that will only send messages to recipients whose email address contains the following string : "+test" , or is in the list of email addresses to debug returned by the interface implementation :
 

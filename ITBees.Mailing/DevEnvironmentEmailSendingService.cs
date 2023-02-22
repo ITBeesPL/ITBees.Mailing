@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using ITBees.Interfaces.Platforms;
 using ITBees.Models.EmailAccounts;
-using ITBees.Models.Platforms;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 

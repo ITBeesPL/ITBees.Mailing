@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ITBees.Mailing\ITBees.Mailing.csproj" />
+    <Folder Include="InMemory\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InMemory\" />
+    <ProjectReference Include="..\ITBees.Mailing\ITBees.Mailing.csproj" />
   </ItemGroup>
 
 </Project>
