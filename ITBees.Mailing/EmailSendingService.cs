@@ -57,6 +57,11 @@ namespace ITBees.Mailing
                 var senderName = senderEmailAccount.EmailFromTitle;
                 var address = senderEmailAccount.Email;
 
+                foreach (var recipient in recipients)
+                {
+                    message.To.Add(new MailboxAddress(recipient, recipient));
+                }
+
                 message.From.Add(new MailboxAddress(senderName, address));
 
                 message.Subject = subject;
@@ -65,7 +70,8 @@ namespace ITBees.Mailing
                 {
                     foreach (var replyTo in replyToAddresses)
                     {
-                        message.ReplyTo.Add(new MailboxAddress(replyTo, replyTo));
+                        if(replyTo !=null) 
+                            message.ReplyTo.Add(new MailboxAddress(replyTo, replyTo));
                     }
                 }
 
