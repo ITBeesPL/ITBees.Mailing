@@ -12,6 +12,7 @@ namespace ITBees.Mailing
     {
         private readonly ILogger<EmailSendingService> _logger;
         private readonly ISmtpClient _smtpClient;
+        private EmailAccount _lastUsedSenderEmailAccount;
 
         public EmailSendingService(ILogger<EmailSendingService> logger)
         {
@@ -126,19 +127,29 @@ namespace ITBees.Mailing
 
         private void SendMessage(MimeMessage message, EmailAccount senderEmailAccount)
         {
-            var smtpHost = senderEmailAccount.SmtpServer;
-            var smtpPort = Convert.ToInt32(senderEmailAccount.SmtpPort);
-            var useSsl = senderEmailAccount.UseSSL;
-            _smtpClient.Connect(smtpHost, smtpPort, useSsl);
+            if (_lastUsedSenderEmailAccount !=null && _lastUsedSenderEmailAccount != senderEmailAccount)
+            {
+                _smtpClient.Disconnect(true);
+            }
 
-            _smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");
+            if (_smtpClient.IsConnected == false)
+            {
+                var smtpHost = senderEmailAccount.SmtpServer;
+                var smtpPort = Convert.ToInt32(senderEmailAccount.SmtpPort);
+                var useSsl = senderEmailAccount.UseSSL;
+                _smtpClient.Connect(smtpHost, smtpPort, useSsl);
+                _smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");
+                _lastUsedSenderEmailAccount = senderEmailAccount;
+            }
 
-            var userName = senderEmailAccount.Email;
-            var password = senderEmailAccount.Pass;
-            _smtpClient.Authenticate(userName, password);
+            if (_smtpClient.IsAuthenticated == false)
+            {
+                var userName = senderEmailAccount.Email;
+                var password = senderEmailAccount.Pass;
+                _smtpClient.Authenticate(userName, password);
+            }
+
             _smtpClient.Send(message);
-            _smtpClient.Disconnect(true);
-            _smtpClient.Dispose();
         }
     }
 }
