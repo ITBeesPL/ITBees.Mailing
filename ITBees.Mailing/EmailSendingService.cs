@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 using System;
 using System.IO;
+using ITBees.Models.EmailMessages;
 using MailKit.Net.Smtp;
 
 namespace ITBees.Mailing
@@ -24,6 +25,16 @@ namespace ITBees.Mailing
         {
             _logger = logger;
             _smtpClient = smtpClient;
+        }
+
+        /// <summary>
+        /// Send email without attachment to specified recipient
+        /// </summary>
+        /// <param name="emailAccount"></param>
+        /// <param name="emailMessage"></param>
+        public void SendEmail(EmailAccount emailAccount, EmailMessage emailMessage)
+        {
+            this.SendEmail(emailAccount,emailMessage.Recipients, emailMessage.Subject, emailMessage.BodyText, emailMessage.BodyHtml, null, null, emailMessage.ReplyToEmail);
         }
 
         public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText,
