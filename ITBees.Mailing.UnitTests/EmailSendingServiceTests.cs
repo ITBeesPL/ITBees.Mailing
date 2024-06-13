@@ -9,7 +9,7 @@ namespace ITBees.Mailing.UnitTests
         [Test]
         public void ServiceCreation_shouldWork()
         {
-            Assert.True(new EmailSendingService(new InMemmoryLogger<EmailSendingService>()) != null);
+            Assert.That(new EmailSendingService(new InMemmoryLogger<EmailSendingService>()) != null);
         }
     }
 }
