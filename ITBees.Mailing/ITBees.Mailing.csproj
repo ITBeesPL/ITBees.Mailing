@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ITBees.BaseServices" Version="5.0.20" />
+    <PackageReference Include="ITBees.BaseServices" Version="8.0.25" />
     <PackageReference Include="ITBees.Models" Version="5.0.29" />
     <PackageReference Include="MailKit" Version="4.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.6" />
