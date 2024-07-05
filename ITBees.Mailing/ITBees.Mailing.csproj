@@ -6,12 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ITBees.BaseServices" Version="8.0.25" />
+    <PackageReference Include="ITBees.BaseServices" Version="8.0.26" />
     <PackageReference Include="ITBees.Models" Version="8.0.29" />
-    <PackageReference Include="MailKit" Version="4.6.0" />
+    <PackageReference Include="MailKit" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.6" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-    <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="MimeKit" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
