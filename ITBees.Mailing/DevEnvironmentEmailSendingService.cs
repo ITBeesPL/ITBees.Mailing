@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ITBees.Interfaces.Platforms;
 using ITBees.Models.EmailAccounts;
+using ITBees.Models.EmailMessages;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 
@@ -19,10 +20,10 @@ namespace ITBees.Mailing
         }
 
         public override void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject, string bodyPlainText,
-            string bodyHtml, byte[] document, string documentName, string[] replyToAddresses)
+            string bodyHtml, List<EmailAttachment> attachments, string[] replyToAddresses)
         {
             List<string> platformDebugEmails = _platformSettingsService.GetPlatformDebugEmails();
-            
+
             var debugRecipients = new List<string>();
             foreach (var recipient in recipients)
             {
@@ -37,7 +38,7 @@ namespace ITBees.Mailing
             }
 
             if (debugRecipients.Count > 0)
-                base.SendEmail(senderEmailAccount, debugRecipients.ToArray(), subject, bodyPlainText, bodyHtml, document, documentName, replyToAddresses);
+                base.SendEmail(senderEmailAccount, debugRecipients.ToArray(), subject, bodyPlainText, bodyHtml, null, replyToAddresses);
         }
     }
 }
