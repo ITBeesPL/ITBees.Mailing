@@ -1,4 +1,5 @@
-﻿using ITBees.Models.EmailAccounts;
+﻿using System.Collections.Generic;
+using ITBees.Models.EmailAccounts;
 using ITBees.Models.EmailMessages;
 
 namespace ITBees.Mailing.Interfaces
@@ -8,9 +9,9 @@ namespace ITBees.Mailing.Interfaces
         void SendEmail(EmailAccount emailAccount, EmailMessage emailMessage);
         void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText, string bodyHtml);
         void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject, string bodyPlainText, string bodyHtml);
-        void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText, string bodyHtml, byte[] document, string documentName, string replyToAddresses);
+        void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText, string bodyHtml, string replyToAddresses);
 
-        void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject, string bodyPlainText, string bodyHtml,
-            byte[] document, string documentName, string[] replyToAddresses);
+        void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject, string bodyPlainText, string bodyHtml, List<EmailAttachment> a
+            , string[] replyToAddresses);
     }
 }

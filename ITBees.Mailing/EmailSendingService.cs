@@ -3,7 +3,9 @@ using ITBees.Models.EmailAccounts;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ITBees.Models.EmailMessages;
 using MailKit.Net.Smtp;
 
@@ -34,7 +36,7 @@ namespace ITBees.Mailing
         /// <param name="emailMessage"></param>
         public void SendEmail(EmailAccount emailAccount, EmailMessage emailMessage)
         {
-            this.SendEmail(emailAccount,emailMessage.Recipients, emailMessage.Subject, emailMessage.BodyText, emailMessage.BodyHtml, null, null, emailMessage.ReplyToEmail);
+            this.SendEmail(emailAccount,new []{emailMessage.Recipients}, emailMessage.Subject, emailMessage.BodyText, emailMessage.BodyHtml, emailMessage.EmailAttachments, new []{emailMessage.ReplyToEmail});
         }
 
         public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText,
@@ -47,20 +49,26 @@ namespace ITBees.Mailing
             string bodyPlainText,
             string bodyHtml)
         {
-            SendEmail(senderEmailAccount, recipients, subject, bodyPlainText, bodyHtml, null, null, null);
+            SendEmail(senderEmailAccount, recipients, subject, bodyPlainText, bodyHtml, null, null);
+        }
+
+        public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText, string bodyHtml,
+            string replyToAddresses)
+        {
+            this.SendEmail(senderEmailAccount, recipient, subject, bodyPlainText, bodyHtml, replyToAddresses);
         }
 
         public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText,
             string bodyHtml,
             byte[] document, string documentName, string replyToAddresses)
         {
-            SendEmail(senderEmailAccount, new[] {recipient}, subject, bodyPlainText, bodyHtml, document, documentName,
+            SendEmail(senderEmailAccount, new[] {recipient}, subject, bodyPlainText, bodyHtml, null,
                 new[] {replyToAddresses});
         }
 
         public virtual void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject,
             string bodyPlainText,
-            string bodyHtml, byte[] document, string documentName, string[] replyToAddresses)
+            string bodyHtml, List<EmailAttachment> attachments, string[] replyToAddresses)
         {
             try
             {
@@ -103,9 +111,9 @@ namespace ITBees.Mailing
                     };
                 }
 
-                message.Body = string.IsNullOrEmpty(documentName)
-                    ? body
-                    : CreateMimeMessageWithAttachment(document, documentName, body, message);
+                message.Body = (attachments != null && attachments.Any())
+                    ? CreateMimeMessageWithAttachment(attachments, body, message)
+                    : body;
 
                 SendMessage(message, senderEmailAccount);
             }
@@ -116,23 +124,25 @@ namespace ITBees.Mailing
             }
         }
 
-        private Multipart CreateMimeMessageWithAttachment(byte[] document, string documentName, MimeEntity body,
+        private Multipart CreateMimeMessageWithAttachment(List<EmailAttachment> emailAttachments, MimeEntity body,
             MimeMessage message)
         {
             var bodyParts = new Multipart();
-
-            var stream = new MemoryStream(document);
-
-            var attachment = new MimePart("application", "octet-stream")
+            foreach (var emailAttachment in emailAttachments)
             {
-                Content = new MimeContent(stream),
-                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = documentName
-            };
+                var stream = new MemoryStream(emailAttachment.File);
 
-            bodyParts.Add(body);
-            bodyParts.Add(attachment);
+                var attachment = new MimePart("application", "octet-stream")
+                {
+                    Content = new MimeContent(stream),
+                    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                    ContentTransferEncoding = ContentEncoding.Base64,
+                    FileName = emailAttachment.FileName
+                };
+                bodyParts.Add(body);
+                bodyParts.Add(attachment);
+            }
+            
             return bodyParts;
         }
 
