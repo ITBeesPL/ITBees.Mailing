@@ -20,7 +20,7 @@ namespace ITBees.Mailing
         }
 
         public override void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject, string bodyPlainText,
-            string bodyHtml, List<EmailAttachment> attachments, string[] replyToAddresses)
+            string bodyHtml, List<EmailAttachment> attachments, string[] replyToAddresses, string[] recipientsCc = null, string[] recipientsBcc = null)
         {
             List<string> platformDebugEmails = _platformSettingsService.GetPlatformDebugEmails();
 

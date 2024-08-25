@@ -12,6 +12,6 @@ namespace ITBees.Mailing.Interfaces
         void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText, string bodyHtml, string replyToAddresses);
 
         void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject, string bodyPlainText, string bodyHtml, List<EmailAttachment> a
-            , string[] replyToAddresses);
+            , string[] replyToAddresses, string[] recipientsCc = null, string[] recipientsBcc = null);
     }
 }
