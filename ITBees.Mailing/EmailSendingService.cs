@@ -36,13 +36,13 @@ namespace ITBees.Mailing
         /// <param name="emailMessage"></param>
         public void SendEmail(EmailAccount emailAccount, EmailMessage emailMessage)
         {
-            this.SendEmail(emailAccount,new []{emailMessage.Recipients}, emailMessage.Subject, emailMessage.BodyText, emailMessage.BodyHtml, emailMessage.EmailAttachments, new []{emailMessage.ReplyToEmail});
+            this.SendEmail(emailAccount, new[] { emailMessage.Recipients }, emailMessage.Subject, emailMessage.BodyText, emailMessage.BodyHtml, emailMessage.EmailAttachments, new[] { emailMessage.ReplyToEmail }, emailMessage.RecipientsCc?.Split(";"), emailMessage.RecipientsBcc?.Split(";"));
         }
 
         public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText,
             string bodyHtml)
         {
-            SendEmail(senderEmailAccount, new[] {recipient}, subject, bodyPlainText, bodyHtml);
+            SendEmail(senderEmailAccount, new[] { recipient }, subject, bodyPlainText, bodyHtml);
         }
 
         public void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject,
@@ -62,13 +62,13 @@ namespace ITBees.Mailing
             string bodyHtml,
             byte[] document, string documentName, string replyToAddresses)
         {
-            SendEmail(senderEmailAccount, new[] {recipient}, subject, bodyPlainText, bodyHtml, null,
-                new[] {replyToAddresses});
+            SendEmail(senderEmailAccount, new[] { recipient }, subject, bodyPlainText, bodyHtml, null,
+                new[] { replyToAddresses });
         }
 
         public virtual void SendEmail(EmailAccount senderEmailAccount, string[] recipients, string subject,
             string bodyPlainText,
-            string bodyHtml, List<EmailAttachment> attachments, string[] replyToAddresses)
+            string bodyHtml, List<EmailAttachment> attachments, string[] replyToAddresses, string[] recipientsCc = null, string[] recipientsBcc = null)
         {
             try
             {
@@ -82,6 +82,21 @@ namespace ITBees.Mailing
                     message.To.Add(new MailboxAddress(recipient, recipient));
                 }
 
+                if (recipientsCc != null)
+                {
+                    foreach (var recipient in recipientsCc)
+                    {
+                        message.Cc.Add(new MailboxAddress(recipient, recipient));
+                    }
+                }
+                if (recipientsBcc != null)
+                {
+                    foreach (var recipient in recipientsBcc)
+                    {
+                        message.Bcc.Add(new MailboxAddress(recipient, recipient));
+                    }
+                }
+
                 message.From.Add(new MailboxAddress(senderName, address));
 
                 message.Subject = subject;
@@ -90,7 +105,7 @@ namespace ITBees.Mailing
                 {
                     foreach (var replyTo in replyToAddresses)
                     {
-                        if(replyTo !=null) 
+                        if (replyTo != null)
                             message.ReplyTo.Add(new MailboxAddress(replyTo, replyTo));
                     }
                 }
@@ -142,13 +157,13 @@ namespace ITBees.Mailing
                 bodyParts.Add(body);
                 bodyParts.Add(attachment);
             }
-            
+
             return bodyParts;
         }
 
         private void SendMessage(MimeMessage message, EmailAccount senderEmailAccount)
         {
-            if (_lastUsedSenderEmailAccount !=null && _lastUsedSenderEmailAccount != senderEmailAccount)
+            if (_lastUsedSenderEmailAccount != null && _lastUsedSenderEmailAccount != senderEmailAccount)
             {
                 _smtpClient.Disconnect(true);
             }
