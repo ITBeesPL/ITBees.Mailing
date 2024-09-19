@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="ITBees.BaseServices" Version="8.0.29" />
-    <PackageReference Include="ITBees.Models" Version="8.0.45" />
+    <PackageReference Include="ITBees.Models" Version="8.0.46" />
     <PackageReference Include="MailKit" Version="4.7.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
