@@ -6,23 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ITBees.Interfaces" Version="8.0.45" />
-    <PackageReference Include="ITBees.BaseServices" Version="8.0.57" />
-    <PackageReference Include="ITBees.Models" Version="8.0.66" />
+    <PackageReference Include="ITBees.BaseServices" Version="8.0.58" />
+    <PackageReference Include="ITBees.Models" Version="8.0.67" />
     <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
     <PackageReference Include="MimeKit" Version="4.8.0" />
   </ItemGroup>
 
-<!--  <ItemGroup>-->
-<!--    <ProjectReference Include="..\..\ITBees.Interfaces\ITBees.Interfaces\ITBees.Interfaces.csproj" />-->
-<!--    <ProjectReference Include="..\..\ITBees.BaseServices\ITBees.BaseServices\ITBees.BaseServices.csproj" />-->
-<!--    <ProjectReference Include="..\..\ITBees.Models\ITBees.Models\ITBees.Models.csproj" />-->
-<!--    <PackageReference Include="MailKit" Version="4.8.0" />-->
-<!--    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.10" />-->
-<!--    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />-->
-<!--    <PackageReference Include="MimeKit" Version="4.8.0" />-->
-<!--  </ItemGroup>-->
-  
 </Project>
