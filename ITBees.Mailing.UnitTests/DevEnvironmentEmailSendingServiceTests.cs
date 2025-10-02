@@ -52,7 +52,7 @@ namespace ITBees.Mailing.UnitTests
         [Test]
         public void DevEnvironmentEmailSendingService_ShouldSendEmailToAddresInDebugEmailsList()
         {
-            List<string> debugEmails = new List<string>() { "jakubtest@gfadsfaxc.com" };
+            List<string> debugEmails = new List<string>() { "jakubtes@gfadsfaxc.com" };
             var platformSettings = new Mock<IPlatformSettingsService>();
             platformSettings.Setup(x => x.GetPlatformDebugEmails()).Returns(debugEmails);
             var smtpClient = new Mock<ISmtpClient>();
