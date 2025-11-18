@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ITBees.Interfaces" Version="8.0.66" />
+    <PackageReference Include="ITBees.Interfaces" Version="8.0.67" />
     <PackageReference Include="ITBees.Models" Version="8.0.94" />
-    <PackageReference Include="ITBees.BaseServices" Version="8.0.84" />
+    <PackageReference Include="ITBees.BaseServices" Version="8.0.85" />
     <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
