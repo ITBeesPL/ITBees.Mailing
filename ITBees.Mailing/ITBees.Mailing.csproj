@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ITBees.Interfaces" Version="8.0.67" />
+    <PackageReference Include="ITBees.Interfaces" Version="8.0.68" />
     <PackageReference Include="ITBees.Models" Version="8.0.94" />
     <PackageReference Include="ITBees.BaseServices" Version="8.0.86" />
     <PackageReference Include="MailKit" Version="4.8.0" />
