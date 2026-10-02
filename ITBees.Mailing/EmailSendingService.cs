@@ -55,14 +55,19 @@ namespace ITBees.Mailing
         public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText, string bodyHtml,
             string replyToAddresses)
         {
-            this.SendEmail(senderEmailAccount, recipient, subject, bodyPlainText, bodyHtml, replyToAddresses);
+            SendEmail(senderEmailAccount, new[] { recipient }, subject, bodyPlainText, bodyHtml, null,
+                new[] { replyToAddresses });
         }
 
         public void SendEmail(EmailAccount senderEmailAccount, string recipient, string subject, string bodyPlainText,
             string bodyHtml,
             byte[] document, string documentName, string replyToAddresses)
         {
-            SendEmail(senderEmailAccount, new[] { recipient }, subject, bodyPlainText, bodyHtml, null,
+            var attachments = document == null || document.Length == 0
+                ? null
+                : new List<EmailAttachment> { new EmailAttachment { File = document, FileName = documentName } };
+
+            SendEmail(senderEmailAccount, new[] { recipient }, subject, bodyPlainText, bodyHtml, attachments,
                 new[] { replyToAddresses });
         }
 
