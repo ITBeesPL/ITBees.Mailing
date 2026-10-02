@@ -143,6 +143,7 @@ namespace ITBees.Mailing
             MimeMessage message)
         {
             var bodyParts = new Multipart();
+            bodyParts.Add(body);
             foreach (var emailAttachment in emailAttachments)
             {
                 var stream = new MemoryStream(emailAttachment.File);
@@ -154,7 +155,6 @@ namespace ITBees.Mailing
                     ContentTransferEncoding = ContentEncoding.Base64,
                     FileName = emailAttachment.FileName
                 };
-                bodyParts.Add(body);
                 bodyParts.Add(attachment);
             }
 
